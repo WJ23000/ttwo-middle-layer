@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>网站主页</title>
+    <link rel="stylesheet" href="/public/css/index.css" />
+  </head>
+  <body>
+    <div class="index-content">
+      {% for item in list %}
+      <div class="item">
+        <a href="{{item.url}}">
+          {{ item.name }} {% if item.describe %} （{{item.describe}}） {% endif %}
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>

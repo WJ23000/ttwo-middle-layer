@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <title>本地用户列表</title>
+    <link rel="stylesheet" href="/public/css/user.css" />
+  </head>
+  <body>
+    <div class="user-content">
+      {% for item in list %}
+      <div class="item">{{ item.name }}-->{{ item.createTime }}</div>
+      {# <div class="item">{{ item.name }}-->{{ helper.relativeTime(item.createTime)}}</div> #}
+      {% endfor %}
+    </div>
+  </body>
+</html>

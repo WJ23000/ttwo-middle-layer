@@ -1,0 +1,13 @@
+<html>
+  <head>
+    <title>获取用户列表</title>
+    <link rel="stylesheet" href="/public/css/user.css" />
+  </head>
+  <body>
+    <div class="user-content">
+      {% for item in list %}
+      <div class="item">{{ item.name }}</div>
+      {% endfor %}
+    </div>
+  </body>
+</html>
