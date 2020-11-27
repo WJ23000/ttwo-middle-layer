@@ -32,4 +32,5 @@ $ npm stop
 
 [egg]: https://eggjs.org
 [nunjucks]: https://nunjucks.bootcss.com/
+[sequelize]: https://www.sequelize.com.cn/
 [moment]: http://momentjs.cn/

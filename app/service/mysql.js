@@ -1,7 +1,7 @@
 const Service = require("egg").Service;
 
-class UserService extends Service {
-  // 根据用户id查
+class MysqlService extends Service {
+  // 根据用户id查询
   async user(id = 1) {
     const { ctx, app } = this;
     if (!id) {
@@ -71,4 +71,4 @@ class UserService extends Service {
   }
 }
 
-module.exports = UserService;
+module.exports = MysqlService;

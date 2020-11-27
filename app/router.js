@@ -12,9 +12,9 @@ module.exports = app => {
   router.get('/list', controller.api.list);
   router.get('/apiList', controller.api.apiList);
 
-  router.get('/user', controller.user.user);
-  router.get('/userAll', controller.user.userAll);
-  router.get('/createUser', controller.user.createUser);
-  router.get('/deleteUser', controller.user.deleteUser);
-  router.get('/updateUser', controller.user.updateUser);
+  router.get('/user', controller.mysql.user);
+  router.get('/userAll', controller.mysql.userAll);
+  router.get('/createUser', controller.mysql.createUser);
+  router.get('/deleteUser', controller.mysql.deleteUser);
+  router.get('/updateUser', controller.mysql.updateUser);
 };

@@ -17,5 +17,11 @@ module.exports = {
   mysql: {
     enable: true, // 开启
     package: 'egg-mysql', // 对应哪个包
+  },
+
+  // 使用sequelize
+  sequelize: {
+    enable: true,
+    package: 'egg-sequelize'
   }
 };

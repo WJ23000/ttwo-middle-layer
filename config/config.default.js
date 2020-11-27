@@ -62,6 +62,22 @@ module.exports = (appInfo) => {
     agent:false
   };
 
+  // 使用sequelize操作mysql
+  config.sequelize = {
+    // 指定数据库类型（mysql, mariadb, postgres, mssql）
+    dialect: 'mysql', // support: 
+    // 主机
+    host:'localhost',
+    // 端口号
+    port:'3306',
+    // 管理员用户名 
+    user:'root',
+    // 管理员密码 
+    password:'root',
+    // 数据库名
+    database:'ttwo_dev'
+  };
+
   // api默认请求地址
   config.baseApi = 'http://gateway.dev.sysadmin.com/service-dl-platform/api/v1/oms'
 

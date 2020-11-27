@@ -7,9 +7,14 @@
     <div class="index-content">
       {% for item in list %}
       <div class="item">
-        <a href="{{item.url}}">
-          {{ item.name }} {% if item.describe %} （{{item.describe}}） {% endif %}
-        </a>
+        <div class="title">{{item.name}}</div>
+        {% for vv in item.options %}
+        <div class="cell">
+          <a href="{{vv.url}}">
+            {{ vv.name }} {% if vv.describe %} （{{vv.describe}}） {% endif %}
+          </a>
+        </div>
+        {% endfor %}
       </div>
       {% endfor %}
     </div>
