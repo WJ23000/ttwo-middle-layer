@@ -26,7 +26,7 @@ module.exports = (appInfo) => {
     threshold: 1024,
   };
 
-  // 禁止百度爬虫访问(z中间件配置)
+  // 禁止百度爬虫访问(中间件配置)
   config.robot = {
     ua: [
       /Baiduspider/i,

@@ -11,12 +11,14 @@ class UserController extends Controller {
     const result = await ctx.service.user.user(id);
     ctx.body = result;
   }
+
   // 查所有用户
   async userAll() {
     const { ctx } = this;
     const result = await ctx.service.user.userAll();
     ctx.body = result;
   }
+
   // 创建一个新用户
   async createUser() {
     const { ctx } = this;
@@ -25,6 +27,7 @@ class UserController extends Controller {
     const result = await ctx.service.user.createUser(username, nickname);
     ctx.body = result;
   }
+
   // 根据用户id删除
   async deleteUser() {
     const { ctx } = this;
@@ -33,6 +36,7 @@ class UserController extends Controller {
     const result = await ctx.service.user.deleteUser(id);
     ctx.body = result;
   }
+
   // 更新指定用户(根据主键更新)
   async updateUser() {
     const { ctx } = this;

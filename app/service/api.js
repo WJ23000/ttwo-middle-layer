@@ -1,6 +1,7 @@
 const Service = require('egg').Service;
 
 class apiService extends Service {
+  // 本地静态数据
   async list() {
     const { ctx } = this;
     const dataList = {
@@ -19,7 +20,8 @@ class apiService extends Service {
     return dataList;
   }
 
-  async apiList(autor = "") {
+  // Api接口转发
+  async apiList() {
     const { ctx } = this;
     const { baseApi } = this.config;
     const result = await ctx.curl(`${baseApi}/overview/important_data_overview/mine`, {
