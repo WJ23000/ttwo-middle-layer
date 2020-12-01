@@ -1,26 +1,43 @@
 const Service = require("egg").Service;
+const { Op } = require("sequelize");
 
-class MysqlService extends Service {
+class SequelizeService extends Service {
   // 根据用户id查询
   async user(id) {
-    const { ctx, app } = this;
+    const { ctx } = this;
     if (!id) {
       return ctx.helper.resultHandler("error", "参数异常，请检查");
     }
-    let result = await app.mysql.get("user", { id: id });
+    let result = await ctx.model.User.findAll({
+        where: {
+            id: {
+                [Op.like]: id
+            }
+        }
+    });
     // 对象不为空正常返回
-    if (result != null) {
+    if (Object.keys(result).length > 0) {
       return ctx.helper.resultHandler("success", result);
     } else {
       return ctx.helper.resultHandler("error", "该数据不存在");
     }
   }
 
+  // 分页查询用户信息
+  async userList(page = 1, pageSize = 10) {
+    
+  }
+
   // 查所有用户
   async userAll() {
-    const { ctx, app } = this;
-    let result = await app.mysql.select("user");
-    return ctx.helper.resultHandler("success", result);
+    const { ctx } = this;
+    let result = await ctx.model.User.findAll();
+    // 对象不为空正常返回
+    if (Object.keys(result).length > 0) {
+      return ctx.helper.resultHandler("success", result);
+    } else {
+      return ctx.helper.resultHandler("error", "该数据不存在");
+    }
   }
 
   // 创建一个新用户
@@ -29,15 +46,16 @@ class MysqlService extends Service {
     if (!username || !nickname) {
       return ctx.helper.resultHandler("error", "参数异常，请检查");
     }
-    let result = await app.mysql.insert("user", {
-      username: username,
-      nickname: nickname,
-      create_time: ctx.helper.nowDateTime(),
-    });
-    if (result.affectedRows == 1) {
-      return ctx.helper.resultHandler("success", "创建成功");
+    const item = {
+        username: username,
+        nickname: nickname,
+        create_time: ctx.helper.nowDateTime()
     }
-    return result;
+    let result = await ctx.model.User.create(item);
+    if (result) {
+      return ctx.helper.resultHandler("success", result);
+    }
+    return ctx.helper.resultHandler("success", result);
   }
 
   // 删除指定用户
@@ -46,8 +64,14 @@ class MysqlService extends Service {
     if (!id) {
       return ctx.helper.resultHandler("error", "参数异常，请检查");
     }
-    let result = await app.mysql.delete("user", { id: id });
-    if (result.affectedRows == 1) {
+    let result = await ctx.model.User.destroy({
+        where: {
+            id: {
+                [Op.like]: id
+            }
+        }
+    });
+    if (result == 1) {
       return ctx.helper.resultHandler("success", "删除成功");
     } else {
       return ctx.helper.resultHandler("error", "该数据不存在");
@@ -60,9 +84,15 @@ class MysqlService extends Service {
     if (!id || !username) {
       return ctx.helper.resultHandler("error", "参数异常，请检查");
     }
-    let result = await app.mysql.update("user", {
-      id: id,
-      username: username,
+    const item = {
+        username: username
+    }
+    let result = await ctx.model.User.update(item, {
+      where: {
+          id: {
+              [Op.like]: id
+          }
+      }
     });
     if (result.affectedRows == 1) {
       return ctx.helper.resultHandler("success", "更新成功");
@@ -72,4 +102,4 @@ class MysqlService extends Service {
   }
 }
 
-module.exports = MysqlService;
+module.exports = SequelizeService;

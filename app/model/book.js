@@ -3,7 +3,7 @@
 module.exports = app => {
   const DataTypes = app.Sequelize;
 
-  const Model = app.model.define('book', {
+  const Book = app.model.define('book', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -46,9 +46,9 @@ module.exports = app => {
     tableName: 'book'
   });
 
-  Model.associate = function() {
+  Book.associate = function() {
 
   }
 
-  return Model;
+  return Book;
 };
