@@ -8,23 +8,23 @@ module.exports = app => {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     chapter_name: {
       type: DataTypes.STRING(255),
-      allowNull: true
+      allowNull: true,
     },
     chapter_content: {
       type: DataTypes.STRING(255),
-      allowNull: true
-    }
+      allowNull: true,
+    },
   }, {
-    tableName: 'book_chapter'
+    tableName: 'book_chapter',
   });
 
   Model.associate = function() {
 
-  }
+  };
 
   return Model;
 };

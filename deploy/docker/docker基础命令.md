@@ -45,7 +45,7 @@
 
 6.  查看容器列表：docker ps -a
 
-7.  查看容器信息：docker inspect xxx
+7.  查看容器信息(端口号)：docker inspect xxx
     xxx: 容器名或者容器id前三位
 
 8.  查看指定容器并打开bash终端：docker exec -it xxx /bin/bash
@@ -75,5 +75,5 @@
 2.  使用build打包当前项目
 ```
 
-### docker hub地址(wjserver)
+### 学习资料
 See [https://yeasy.gitbook.io/docker_practice/](https://yeasy.gitbook.io/docker_practice/).

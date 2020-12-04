@@ -10,7 +10,7 @@ module.exports = {
   // 使用nunjucks模板引擎
   nunjucks: {
     enable: true,
-    package: 'egg-view-nunjucks'
+    package: 'egg-view-nunjucks',
   },
 
   // 使用mysql
@@ -22,6 +22,6 @@ module.exports = {
   // 使用sequelize
   sequelize: {
     enable: true,
-    package: 'egg-sequelize'
-  }
+    package: 'egg-sequelize',
+  },
 };

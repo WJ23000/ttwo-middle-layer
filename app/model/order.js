@@ -3,61 +3,52 @@
 module.exports = app => {
   const DataTypes = app.Sequelize;
 
-  const User = app.model.define('user', {
+  const Model = app.model.define('order', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
-    username: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-      unique: true,
-    },
-    password: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-    },
-    nickname: {
+    name: {
       type: DataTypes.STRING(255),
       allowNull: true,
     },
-    age: {
+    number: {
       type: DataTypes.INTEGER(11),
       allowNull: true,
     },
-    sex: {
+    price: {
+      type: DataTypes.DECIMAL,
+      allowNull: true,
+    },
+    count: {
       type: DataTypes.STRING(255),
       allowNull: true,
     },
-    phone: {
+    order_status: {
       type: DataTypes.STRING(255),
       allowNull: true,
     },
-    vip_status: {
+    is_refund: {
       type: DataTypes.STRING(255),
-      allowNull: true,
-    },
-    vip_time: {
-      type: DataTypes.INTEGER(11),
       allowNull: true,
     },
     create_time: {
       type: DataTypes.DATE,
       allowNull: true,
     },
-    update_time: {
+    ok_time: {
       type: DataTypes.DATE,
       allowNull: true,
     },
   }, {
-    tableName: 'user',
+    tableName: 'order',
   });
 
-  User.associate = function() {
+  Model.associate = function() {
 
   };
 
-  return User;
+  return Model;
 };

@@ -1,15 +1,29 @@
-# Docker脚本
+# 设置基础镜像
+FROM node:12.16.1-alpine
 
-# 使用nginx
-FROM nginx
+# 指定时区
+RUN apk --update add tzdata \
+    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && echo "Asia/Shanghai" > /etc/timezone \
+    && apk del tzdata
 
-# 删除nginx/html下的所有文件
-RUN rm -rf /usr/share/nginx/html/*
+# 指定容器目录
+RUN mkdir -p /usr/src/app
+ 
+# 指定工作目录
+WORKDIR /usr/src/app
+ 
+# 复制package.json到指定工作目录
+COPY package.json /usr/src/app/package.json
+ 
+# 安装依赖
+RUN npm i --registry=https://registry.npmjs.org/
 
-# 将本地打包后的dist文件夹copy到nginx/html文件夹中
-COPY dist/ /usr/share/nginx/html/ 
-
-# 将本地nginx配置文件替换nginx默认配置文件(命名要一致)
-COPY default.conf /etc/conf.d/default.conf 
-
-EXPOSE 80
+# 复制所有文件到指定工作目录 
+COPY . /usr/src/app
+ 
+# 暴露容器端口号
+EXPOSE 5215
+ 
+# 启动应用
+CMD npm run start

@@ -22,6 +22,9 @@ module.exports = app => {
   router.get('/sequelize/userList', controller.sequelize.userList);
   router.get('/sequelize/userAll', controller.sequelize.userAll);
   router.get('/sequelize/createUser', controller.sequelize.createUser);
+  router.get('/sequelize/batchCreateUser', controller.sequelize.batchCreateUser);
   router.get('/sequelize/deleteUser', controller.sequelize.deleteUser);
+  router.get('/sequelize/batchDeleteUser', controller.sequelize.batchDeleteUser);
   router.get('/sequelize/updateUser', controller.sequelize.updateUser);
+  router.get('/sequelize/batchUpdateUser', controller.sequelize.batchUpdateUser);
 };

@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const Controller = require("egg").Controller;
+const Controller = require('egg').Controller;
 
 class ApiController extends Controller {
   // 本地静态数据
@@ -9,7 +9,7 @@ class ApiController extends Controller {
     // 调用service层方法
     const result = await ctx.service.api.list();
     // 渲染模板文件, 并赋值给 ctx.body
-    await ctx.render("api/list.html", result);
+    await ctx.render('api/list.html', result);
   }
 
   // 通过api获取数据

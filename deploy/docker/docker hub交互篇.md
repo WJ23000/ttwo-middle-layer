@@ -26,5 +26,5 @@
 1.  本地预先生成docker镜像文件
 ```
 
-### docker hub地址
+### docker hub地址(wjserver)
 See [https://hub.docker.com/](https://hub.docker.com/).
