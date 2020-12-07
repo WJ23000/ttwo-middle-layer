@@ -46,13 +46,13 @@ module.exports = appInfo => {
   config.mysql = {
     client: {
       // 主机
-      host: 'localhost',
+      host: '192.168.66.175',
       // 端口号
       port: '3306',
       // 管理员用户名
       user: 'root',
       // 管理员密码
-      password: 'root',
+      password: 'ZJhw@123456',
       // 数据库名
       database: 'ttwo_dev',
     },
@@ -67,13 +67,13 @@ module.exports = appInfo => {
     // 指定数据库类型（mysql, mariadb, postgres, mssql）
     dialect: 'mysql', // support:
     // 主机
-    host: 'localhost',
+    host: '192.168.66.175',
     // 端口号
     port: '3306',
     // 管理员用户名
     user: 'root',
     // 管理员密码
-    password: 'root',
+    password: 'ZJhw@123456',
     // 数据库名
     database: 'ttwo_dev',
     // 保存时用的时间
@@ -99,6 +99,16 @@ module.exports = appInfo => {
       freezeTableName: true,
     },
   };
+
+  // 使用redis
+  config.redis = {
+    client: {
+      host: "127.0.0.1",
+      port: 6379,
+      password: "",
+      db: 0
+    }
+  }
 
   // api默认请求地址
   config.baseApi = 'http://gateway.dev.sysadmin.com/service-dl-platform/api/v1/oms';

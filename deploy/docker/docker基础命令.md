@@ -54,8 +54,11 @@
 
 9.  查看容器日志：docker attach [options] xxx
     xxx：容器名或者容器id前三位
+
+10. 查看日志：docker logs xxx
+    xxx：容器名或者容器id前三位
     
-10. 查看当前目录中所有文件：ls
+11. 查看当前目录中所有文件：ls
     进入指定文件夹目录：cd
     返回上级文件夹目录：cd ..(cd和..之间有一个空格)
     打印工作路径：pwd
@@ -63,8 +66,8 @@
     删除文件：rm xxx.js(xxx.js文件名)
     新建文件夹：mkdir xxx(xxx文件夹名)
     删除文件夹：rm -r xxx(xxx文件夹名，-r会删除文件夹中所有的文件)
-    清屏：reset
-    退出终端：exit或者Ctrl+d
+    清屏：cls
+    退出终端：exit或者Ctrl+D
     查看指定文件：tail -f xxx(xxx文件名，-f循环读取)
 ```
 

@@ -9,21 +9,21 @@ RUN apk --update add tzdata \
 
 # 指定容器目录
 RUN mkdir -p /usr/src/app
- 
+
 # 指定工作目录
 WORKDIR /usr/src/app
  
 # 复制package.json到指定工作目录
 COPY package.json /usr/src/app/package.json
- 
+
 # 安装依赖
 RUN npm i --registry=https://registry.npmjs.org/
 
 # 复制所有文件到指定工作目录 
 COPY . /usr/src/app
- 
+
 # 暴露容器端口号
-EXPOSE 5215
- 
+EXPOSE 7001
+
 # 启动应用
-CMD npm run start
+CMD npm start

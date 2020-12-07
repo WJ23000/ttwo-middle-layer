@@ -15,13 +15,19 @@ module.exports = {
 
   // 使用mysql
   mysql: {
-    enable: true, // 开启
-    package: 'egg-mysql', // 对应哪个包
+    enable: true,
+    package: 'egg-mysql'
   },
 
   // 使用sequelize
   sequelize: {
     enable: true,
-    package: 'egg-sequelize',
+    package: 'egg-sequelize'
   },
+
+  // 使用redis
+  redis: {
+    enable: true,
+    package: 'egg-redis'
+  }
 };

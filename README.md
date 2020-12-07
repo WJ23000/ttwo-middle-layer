@@ -29,7 +29,7 @@ $ npm stop
 $ 使用docker容器，需要去掉egg-scripts start --daemon --title=egg-server-ttwo-middle-layer中的--daemon
 $ 创建Dockerfile文件
 $ 创建镜像 docker build -t ttwo .
-$ 创建容器 docker run -d --name ttwo -p 7001:5215 ttwo
+$ 创建容器 docker run -d --name ttwo -p 5215:7001 ttwo
 ```
 
 ### npm scripts
