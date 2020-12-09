@@ -3,52 +3,52 @@
 module.exports = app => {
   const DataTypes = app.Sequelize;
 
-  const Model = app.model.define('book', {
+  const Book = app.model.define('book', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     title: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
     sub_title: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
     autor: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
     describe: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
     read_count: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
     free_status: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
     create_time: {
       type: DataTypes.DATE,
-      allowNull: true,
+      allowNull: true
     },
     update_time: {
       type: DataTypes.DATE,
-      allowNull: true,
-    },
+      allowNull: true
+    }
   }, {
-    tableName: 'book',
+    tableName: 'book'
   });
 
-  Model.associate = function() {
+  Book.associate = function() {
 
-  };
+  }
 
-  return Model;
+  return Book;
 };

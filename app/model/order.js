@@ -8,47 +8,47 @@ module.exports = app => {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     name: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
     number: {
       type: DataTypes.INTEGER(11),
-      allowNull: true,
+      allowNull: true
     },
     price: {
       type: DataTypes.DECIMAL,
-      allowNull: true,
+      allowNull: true
     },
     count: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
     order_status: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
     is_refund: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
     create_time: {
       type: DataTypes.DATE,
-      allowNull: true,
+      allowNull: true
     },
     ok_time: {
       type: DataTypes.DATE,
-      allowNull: true,
-    },
+      allowNull: true
+    }
   }, {
-    tableName: 'order',
+    tableName: 'order'
   });
 
   Model.associate = function() {
 
-  };
+  }
 
   return Model;
 };

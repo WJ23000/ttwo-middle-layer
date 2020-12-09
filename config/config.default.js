@@ -45,7 +45,7 @@ module.exports = appInfo => {
   // 使用mysql
   config.mysql = {
     client: {
-      // 主机
+      // 主机(外网可访问)
       host: '192.168.66.175',
       // 端口号
       port: '3306',
@@ -66,7 +66,7 @@ module.exports = appInfo => {
   config.sequelize = {
     // 指定数据库类型（mysql, mariadb, postgres, mssql）
     dialect: 'mysql', // support:
-    // 主机
+    // 主机(外网可访问)
     host: '192.168.66.175',
     // 端口号
     port: '3306',
@@ -103,8 +103,11 @@ module.exports = appInfo => {
   // 使用redis
   config.redis = {
     client: {
+      // 主机(外网可访问)
       host: "127.0.0.1",
+      // 端口号
       port: 6379,
+      // 管理员密码
       password: "",
       db: 0
     }
@@ -112,6 +115,13 @@ module.exports = appInfo => {
 
   // api默认请求地址
   config.baseApi = 'http://gateway.dev.sysadmin.com/service-dl-platform/api/v1/oms';
+
+  // 关闭csrf功能(不建议这么做，后期改回来)
+  config.security = {
+    csrf: {
+      enable: false,
+    }
+  }
 
   // add your user config here
   const userConfig = {

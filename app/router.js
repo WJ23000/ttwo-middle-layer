@@ -15,16 +15,18 @@ module.exports = app => {
   router.get('/mysql/user', controller.mysql.user);
   router.get('/mysql/userAll', controller.mysql.userAll);
   router.get('/mysql/createUser', controller.mysql.createUser);
-  router.get('/mysql/deleteUser', controller.mysql.deleteUser);
   router.get('/mysql/updateUser', controller.mysql.updateUser);
+  router.get('/mysql/deleteUser', controller.mysql.deleteUser);
+  
 
   router.get('/sequelize/user', controller.sequelize.user);
   router.get('/sequelize/userList', controller.sequelize.userList);
   router.get('/sequelize/userAll', controller.sequelize.userAll);
-  router.get('/sequelize/createUser', controller.sequelize.createUser);
-  router.get('/sequelize/batchCreateUser', controller.sequelize.batchCreateUser);
+  router.post('/sequelize/createUser', controller.sequelize.createUser);
+  router.post('/sequelize/batchCreateUser', controller.sequelize.batchCreateUser);
+  router.post('/sequelize/updateUser', controller.sequelize.updateUser);
+  router.post('/sequelize/batchUpdateUser', controller.sequelize.batchUpdateUser);
   router.get('/sequelize/deleteUser', controller.sequelize.deleteUser);
-  router.get('/sequelize/batchDeleteUser', controller.sequelize.batchDeleteUser);
-  router.get('/sequelize/updateUser', controller.sequelize.updateUser);
-  router.get('/sequelize/batchUpdateUser', controller.sequelize.batchUpdateUser);
+  router.post('/sequelize/batchDeleteUser', controller.sequelize.batchDeleteUser);
+  
 };

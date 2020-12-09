@@ -34,12 +34,11 @@
     root：用户名
 
 4.  查询user表中host和user列：select host,user from user;
-
-5.  重新加载权限：flush privileges;
-
-6.  授权所有用户连接：grant all privileges on *.* to 'root'@'%' identified by 'root' with grant option;
     重新加载权限：flush privileges;
 
-7.  授权指定用户连接：grant all privileges on *.* to 'root'@'172.31.20.124' identified by 'root' with grant option;
+5.  授权所有用户连接：grant all privileges on *.* to 'root'@'%' identified by 'root' with grant option;
+    重新加载权限：flush privileges;
+
+6.  授权指定用户连接：grant all privileges on *.* to 'root'@'172.31.20.124' identified by 'root' with grant option;
     重新加载权限：flush privileges;
 ```

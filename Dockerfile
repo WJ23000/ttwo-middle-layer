@@ -25,5 +25,5 @@ COPY . /usr/src/app
 # 暴露容器端口号
 EXPOSE 7001
 
-# 启动应用
-CMD npm start
+# 启动应用(package.json的start启动命令不能包含--daemon)
+CMD npm run start

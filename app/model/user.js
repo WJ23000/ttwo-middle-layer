@@ -8,56 +8,56 @@ module.exports = app => {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     username: {
       type: DataTypes.STRING(255),
       allowNull: false,
-      unique: true,
+      unique: true
     },
     password: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: false
     },
     nickname: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
     age: {
       type: DataTypes.INTEGER(11),
-      allowNull: true,
+      allowNull: true
     },
     sex: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
     phone: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
     vip_status: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
     vip_time: {
       type: DataTypes.INTEGER(11),
-      allowNull: true,
+      allowNull: true
     },
     create_time: {
       type: DataTypes.DATE,
-      allowNull: true,
+      allowNull: true
     },
     update_time: {
       type: DataTypes.DATE,
-      allowNull: true,
-    },
+      allowNull: true
+    }
   }, {
-    tableName: 'user',
+    tableName: 'user'
   });
 
   User.associate = function() {
 
-  };
+  }
 
   return User;
 };
