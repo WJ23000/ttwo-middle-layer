@@ -7,7 +7,7 @@
 2.  查看docker安装位置：where docker
 ```
 
-## 镜像篇
+## 镜像篇(使用nginx作为基础镜像)
 ```
 1.  查找指定镜像：docker search nginx
 

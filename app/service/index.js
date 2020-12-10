@@ -94,18 +94,24 @@ class IndexService extends Service {
             },
             {
               id: 16,
-              name: '批量更新指定用户',
-              url: '/sequelize/batchUpdateUser',
-              describe: '必须指定对象，由用户id组成的数组ids和包含username的list集合组成',
+              name: '同时更新多个指定用户',
+              url: '/sequelize/updateManyUser',
+              describe: '必须指定对象，由用户id组成的数组ids和包含password的list集合组成',
             },
             {
               id: 17,
+              name: '批量更新用户',
+              url: '/sequelize/batchUpdateUser',
+              describe: '必须指定数组，由包含username、password、create_time的集合组成',
+            },
+            {
+              id: 18,
               name: '删除指定用户信息',
               url: '/sequelize/deleteUser',
               describe: '必须指定用户id',
             },
             {
-              id: 18,
+              id: 19,
               name: '批量删除指定用户信息',
               url: '/sequelize/batchDeleteUser',
               describe: '必须指定ids数组，包含用户id',
@@ -115,9 +121,9 @@ class IndexService extends Service {
         {
           name: 'redis操作',
           options: [
-            { id: 19, name: '查询所有key', url: '/queryAllKey', describe: '' },
-            { id: 20, name: '存储一个key', url: '/saveKey', describe: '' },
-            { id: 21, name: '获取一个key', url: '/getKey', describe: '' },
+            { id: 20, name: '查询所有key', url: '/queryAllKey', describe: '' },
+            { id: 21, name: '存储一个key', url: '/saveKey', describe: '' },
+            { id: 22, name: '获取一个key', url: '/getKey', describe: '' },
           ],
         },
       ],

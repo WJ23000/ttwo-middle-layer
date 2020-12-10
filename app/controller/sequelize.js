@@ -55,7 +55,16 @@ class SequelizeController extends Controller {
     ctx.body = result;
   }
 
-  // 批量更新指定用户(根据主键更新，post方式)
+  // 同时更新多个指定用户(根据主键更新，post方式)
+  async updateManyUser() {
+    const { ctx } = this;
+    // 接收页面传递过来的参数
+    const userList = ctx.request.body;
+    const result = await ctx.service.sequelize.updateManyUser(userList);
+    ctx.body = result;
+  }
+
+  // 批量更新用户(根据主键更新，post方式)
   async batchUpdateUser() {
     const { ctx } = this;
     // 接收页面传递过来的参数

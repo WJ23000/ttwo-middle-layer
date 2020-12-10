@@ -25,6 +25,7 @@ module.exports = app => {
   router.post('/sequelize/createUser', controller.sequelize.createUser);
   router.post('/sequelize/batchCreateUser', controller.sequelize.batchCreateUser);
   router.post('/sequelize/updateUser', controller.sequelize.updateUser);
+  router.post('/sequelize/updateManyUser', controller.sequelize.updateManyUser);
   router.post('/sequelize/batchUpdateUser', controller.sequelize.batchUpdateUser);
   router.get('/sequelize/deleteUser', controller.sequelize.deleteUser);
   router.post('/sequelize/batchDeleteUser', controller.sequelize.batchDeleteUser);

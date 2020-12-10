@@ -13,7 +13,7 @@ RUN mkdir -p /usr/src/app
 # 指定工作目录
 WORKDIR /usr/src/app
  
-# 复制package.json到指定工作目录
+# 复制package.json到指定工作目录(第一次会安装依赖，以后当package.json有更新时会重新安装依赖)
 COPY package.json /usr/src/app/package.json
 
 # 安装依赖

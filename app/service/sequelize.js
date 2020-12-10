@@ -12,7 +12,7 @@ class SequelizeService extends Service {
     const result = await ctx.model.User.findAll({
       where: {
         id: {
-          [Op.like]: id,
+          [Op.eq]: id,
         },
       },
     });
@@ -48,7 +48,7 @@ class SequelizeService extends Service {
   }
 
 
-  // 插入一个新用户(已确认，当数据重复时未处理)
+  // 插入一个新用户(已确认)
   // 示例：http://localhost:7001/sequelize/createUser
   // 参数：{ "username": "newuser","password": "","create_time": "" }
   async createUser(user) {
@@ -64,7 +64,7 @@ class SequelizeService extends Service {
   }
 
 
-  // 批量插入新用户(已确认，当数据重复时未处理)
+  // 批量插入新用户(已确认)
   // 示例语句：http://localhost:7001/sequelize/batchCreateUser
   // 参数：[{ "username": "v1","password": "","create_time": "" },{ "username": "v2","password": "","create_time": "" }]
   async batchCreateUser(userList) {
@@ -82,7 +82,7 @@ class SequelizeService extends Service {
   }
 
 
-  // 更新指定用户(已确认，根据主键更新)
+  // 更新指定用户(已确认)
   // 示例语句：http://localhost:7001/sequelize/updateUser
   // 参数：{ "id": "13","list": {"username": "updateuser"} }
   async updateUser(user) {
@@ -93,28 +93,44 @@ class SequelizeService extends Service {
     const result = await ctx.model.User.update(user.list, {
       where: {
         id: {
-          [Op.like]: user.id,
+          [Op.eq]: user.id,
         },
       },
     });
     return ctx.helper.resultHandler('success', result);
   }
 
-
-  // 批量更新指定用户(根据主键更新)
-  // 示例语句：http://localhost:7001/sequelize/batchUpdateUser
-  // 参数：{ "ids": [13,20],"list": {"username": "batchuser"} }
-  async batchUpdateUser(userList) {
+  // 同时更新多个指定用户(已确认)
+  // 示例语句：http://localhost:7001/sequelize/updateManyUser
+  // 参数：{ "ids": [13,20],"list": {"password": "8888888"} }
+  async updateManyUser(userList) {
     const { ctx } = this;
     if (!userList.ids || !userList.list) {
       return ctx.helper.resultHandler('error', '参数异常，请检查');
     }
-    const result = await ctx.model.User.bulkCreate(userList.list, {
-      updateOnDuplicate:true,
+    const result = await ctx.model.User.update(userList.list, {
       where: {
-        id: userList.ids,
+        id: {
+          [Op.or]: userList.ids
+        }
       },
     });
+    return ctx.helper.resultHandler('success', result);
+  }
+
+  // 批量更新用户
+  // 示例语句：http://localhost:7001/sequelize/batchUpdateUser
+  // 参数：[{ "username": "v1","password": "666666","create_time": "" },{ "username": "v2","password": "666666","create_time": "" }]
+  async batchUpdateUser(userList) {
+    const { ctx } = this;
+    if (!userList) {
+      return ctx.helper.resultHandler('error', '参数异常，请检查');
+    }
+    // 处理数据
+    userList.forEach(item => {
+      item.create_time = ctx.helper.nowDateTime();
+    });
+    const result = await ctx.model.User.bulkCreate(userList, { updateOnDuplicate: ["id","username"] });
     return ctx.helper.resultHandler('success', result);
   }
 
@@ -129,7 +145,7 @@ class SequelizeService extends Service {
     const result = await ctx.model.User.destroy({
       where: {
         id: {
-          [Op.like]: id,
+          [Op.eq]: id,
         },
       },
     });

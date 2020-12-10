@@ -19,18 +19,29 @@ module.exports = appInfo => {
   config.middleware = [
     'gzip',
     'robot',
+    'catchRequest'
   ];
 
   // 小于 1k 的响应体不压缩(中间件配置)
   config.gzip = {
+    enable: true,
     threshold: 1024,
   };
 
   // 禁止百度爬虫访问(中间件配置)
   config.robot = {
+    enable: true,
     ua: [
       /Baiduspider/i,
     ],
+  };
+
+  // 对路由进行异常处理
+  config.catchRequest = {
+    enable: true
+    // match: '/sequelize/updateUser', // 设置只有符合某些规则的请求才会经过这个中间件（匹配路由）
+    // ignore: '/shop' // 设置符合某些规则的请求不经过这个中间件。
+    // match 和 ignore 不允许同时配置
   };
 
   // 使用nunjucks模板引擎(默认为nunjucks)
