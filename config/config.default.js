@@ -112,17 +112,17 @@ module.exports = appInfo => {
   };
 
   // 使用redis
-  config.redis = {
-    client: {
-      // 主机(外网可访问)
-      host: "127.0.0.1",
-      // 端口号
-      port: 6379,
-      // 管理员密码
-      password: "",
-      db: 0
-    }
-  }
+  // config.redis = {
+  //   client: {
+  //     // 主机(外网可访问)
+  //     host: "127.0.0.1",
+  //     // 端口号
+  //     port: 6379,
+  //     // 管理员密码
+  //     password: "",
+  //     db: 0
+  //   }
+  // }
 
   // api默认请求地址
   config.baseApi = 'http://gateway.dev.sysadmin.com/service-dl-platform/api/v1/oms';

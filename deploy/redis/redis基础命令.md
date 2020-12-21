@@ -18,6 +18,11 @@
 5.  
 ```
 
+## 设置外网可访问权限
+```
+
+```
+
 
 ### 学习资料
 See [https://www.redis.net.cn/](https://www.redis.net.cn/).
