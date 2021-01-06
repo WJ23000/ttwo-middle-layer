@@ -40,7 +40,7 @@ module.exports = appInfo => {
   // 对路由请求进行异常处理
   config.catchRequest = {
     enable: true
-    // ignore: ['/shop'] // 设置符合某些规则的请求不经过这个中间件。
+    // ignore: ['/log'] // 设置符合某些规则的请求不经过这个中间件。
   };
 
   // 对路由请求进行token校验

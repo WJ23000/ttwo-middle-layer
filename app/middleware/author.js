@@ -24,7 +24,7 @@ module.exports = (options, app) => {
       } else {
         ctx.body = {
             data: [],
-            message: "Headers缺少authorization属性，请重新登录",
+            message: "缺少token，请重新登录",
             status: '4000401'
         };
         return;
