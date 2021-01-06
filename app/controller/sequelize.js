@@ -3,6 +3,15 @@
 const Controller = require('egg').Controller;
 
 class SequelizeController extends Controller {
+  // 登录(post方式)
+  async login() {
+    const { ctx } = this;
+    // 接收页面传递过来的参数
+    const userInfo = ctx.request.body;
+    const result = await ctx.service.sequelize.login(userInfo);
+    ctx.body = result;
+  }
+
   // 根据用户id查询(get方式)
   async user() {
     const { ctx } = this;

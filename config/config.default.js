@@ -19,7 +19,8 @@ module.exports = appInfo => {
   config.middleware = [
     'gzip',
     'robot',
-    'catchRequest'
+    'catchRequest',
+    'author'
   ];
 
   // 小于 1k 的响应体不压缩(中间件配置)
@@ -36,13 +37,18 @@ module.exports = appInfo => {
     ],
   };
 
-  // 对路由进行异常处理
+  // 对路由请求进行异常处理
   config.catchRequest = {
     enable: true
-    // match: '/sequelize/updateUser', // 设置只有符合某些规则的请求才会经过这个中间件（匹配路由）
-    // ignore: '/shop' // 设置符合某些规则的请求不经过这个中间件。
-    // match 和 ignore 不允许同时配置
+    // ignore: ['/shop'] // 设置符合某些规则的请求不经过这个中间件。
   };
+
+  // 对路由请求进行token校验
+  config.author = {
+    enable: true,
+    ignore: ['/sequelize/login', '/sequelize/register'] // 设置符合某些规则的请求不经过这个中间件(配置了此项，则不需要在router.js文件中使用中间件)
+  };
+
 
   // 使用nunjucks模板引擎(默认为nunjucks)
   config.view = {
@@ -51,6 +57,26 @@ module.exports = appInfo => {
     mapping: {
       '.html': 'nunjucks',
     },
+  };
+
+  // 关闭csrf功能(不建议这么做，后期改回来)
+  config.security = {
+　　csrf: {
+　　  enable: false,
+      ignoreJSON: true
+　　},
+　　domainWhiteList: ['*'] // 允许访问接口的白名单
+　};
+    
+  // 使用cors
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
+  };
+
+  // 使用jwt
+  config.jwt = {
+    secret: 'ttwo12345678'
   };
 
   // 使用mysql
@@ -126,13 +152,6 @@ module.exports = appInfo => {
 
   // api默认请求地址
   config.baseApi = 'http://gateway.dev.sysadmin.com/service-dl-platform/api/v1/oms';
-
-  // 关闭csrf功能(不建议这么做，后期改回来)
-  config.security = {
-    csrf: {
-      enable: false,
-    }
-  }
 
   // add your user config here
   const userConfig = {

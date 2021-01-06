@@ -1,4 +1,4 @@
-// app/middleware/catch_request.js
+// options === app/middleware/catch_request.js
 module.exports = (option, app) => {
   return async function catchRequest(ctx, next) {
     try {

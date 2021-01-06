@@ -1,13 +1,17 @@
 const moment = require('moment');
 
 // 时间戳转换
-const relativeTime = time => moment(time).format('YYYY-MM-DD HH:mm:ss');
+function relativeTime(time) {
+  return moment(time).format('YYYY-MM-DD HH:mm:ss');
+}
 
 // 获取当前系统时间
-const nowDateTime = () => moment().format('YYYY-MM-DD HH:mm:ss');
+function nowDateTime() {
+  return moment().format('YYYY-MM-DD HH:mm:ss');
+}
 
 // 对mysql返回结果进行封装
-const resultHandler = (type, data) => {
+function resultHandler(type, data) {
   // 操作成功(有数据)
   const success = {
     data,
@@ -23,8 +27,15 @@ const resultHandler = (type, data) => {
   return { success, error }[type];
 };
 
+// 生成token
+function getToken(value) {
+  const { app, config } = this;
+  return app.jwt.sign(value, config.jwt.secret);
+}
+
 module.exports = {
   relativeTime,
   nowDateTime,
   resultHandler,
+  getToken
 };

@@ -19,6 +19,7 @@ module.exports = app => {
   router.get('/mysql/deleteUser', controller.mysql.deleteUser);
   
 
+  router.post('/sequelize/login', controller.sequelize.login);
   router.get('/sequelize/user', controller.sequelize.user);
   router.get('/sequelize/userList', controller.sequelize.userList);
   router.get('/sequelize/userAll', controller.sequelize.userAll);

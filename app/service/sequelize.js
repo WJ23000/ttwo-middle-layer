@@ -2,6 +2,33 @@ const Service = require('egg').Service;
 const { Op } = require('sequelize');
 
 class SequelizeService extends Service {
+  // 登录
+  async login(userInfo) {
+    const { ctx } = this;
+    let { username, password } = userInfo;
+    if (!username || !password) {
+      return ctx.helper.resultHandler('error', '请输入用户名或密码');
+    }
+    // 生成token
+    const token = ctx.helper.getToken(username);
+    ctx.set({'authorization': token})
+    const result = await ctx.model.User.findAll({
+      where: {
+        username: {
+          [Op.eq]: username
+        },
+        password: {
+          [Op.eq]: password
+        }
+      }
+    })
+    const data = {
+      token: token,
+      userInfo: result
+    }
+    return ctx.helper.resultHandler('success', data);
+  }
+
   // 根据用户id查询(已确认)
   // 示例：http://localhost:7001/sequelize/user?id=13
   async user(id) {
@@ -27,11 +54,12 @@ class SequelizeService extends Service {
     if (!page || !pageSize) {
       return ctx.helper.resultHandler('error', '参数异常，请检查');
     }
-    const offset = (page - 1) * pageSize
+    let offset = (page - 1) * pageSize;
+    let limit = parseInt(pageSize);
     const result = await ctx.model.User.findAll({
       order: [["id", "asc"]],
       offset,
-      limit: parseInt(pageSize)
+      limit
     });
     return ctx.helper.resultHandler('success', result);
   }
@@ -87,13 +115,14 @@ class SequelizeService extends Service {
   // 参数：{ "id": "13","list": {"username": "updateuser"} }
   async updateUser(user) {
     const { ctx } = this;
-    if (!user.id || !user.list) {
+    let { id, list } = user;
+    if (!id || !list) {
       return ctx.helper.resultHandler('error', '参数异常，请检查');
     }
     const result = await ctx.model.User.update(user.list, {
       where: {
         id: {
-          [Op.eq]: user.id,
+          [Op.eq]: id,
         },
       },
     });
@@ -105,13 +134,14 @@ class SequelizeService extends Service {
   // 参数：{ "ids": [13,20],"list": {"password": "8888888"} }
   async updateManyUser(userList) {
     const { ctx } = this;
-    if (!userList.ids || !userList.list) {
+    let { ids, list } = userList;
+    if (!ids || !list) {
       return ctx.helper.resultHandler('error', '参数异常，请检查');
     }
-    const result = await ctx.model.User.update(userList.list, {
+    const result = await ctx.model.User.update(list, {
       where: {
         id: {
-          [Op.or]: userList.ids
+          [Op.or]: ids
         }
       },
     });

@@ -10,7 +10,19 @@ module.exports = {
   // 使用nunjucks模板引擎
   nunjucks: {
     enable: true,
-    package: 'egg-view-nunjucks',
+    package: 'egg-view-nunjucks'
+  },
+
+  // 使用cors跨域
+  cors: {
+    enable: true,
+    package: 'egg-cors'
+  },
+
+  // 使用jwt
+  jwt: {
+    enable: true,
+    package: 'egg-jwt'
   },
 
   // 使用mysql

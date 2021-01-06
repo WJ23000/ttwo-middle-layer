@@ -32,6 +32,11 @@ $ 创建镜像 docker build -t ttwo .
 $ 创建容器 docker run -d --name ttwo -p 5215:7001 ttwo
 ```
 
+### Api接口测试工具
+```
+使用Postman
+```
+
 ### npm scripts
 
 - Use `npm run lint` to check code style.
