@@ -19,12 +19,6 @@ module.exports = {
     package: 'egg-cors'
   },
 
-  // 使用jwt
-  jwt: {
-    enable: true,
-    package: 'egg-jwt'
-  },
-
   // 使用mysql
   mysql: {
     enable: true,
@@ -41,5 +35,11 @@ module.exports = {
   redis: {
     enable: true,
     package: 'egg-redis'
+  },
+
+  // 使用socket.io
+  io: {
+    enable: true,
+    package: 'egg-socket.io',
   }
 };

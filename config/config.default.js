@@ -20,7 +20,7 @@ module.exports = appInfo => {
     'gzip',
     'robot',
     'catchRequest',
-    'author'
+    'jwt'
   ];
 
   // 小于 1k 的响应体不压缩(中间件配置)
@@ -44,11 +44,14 @@ module.exports = appInfo => {
   };
 
   // 对路由请求进行token校验
-  config.author = {
+  config.jwt = {
     enable: true,
-    ignore: ['/sequelize/login', '/sequelize/register'] // 设置符合某些规则的请求不经过这个中间件(配置了此项，则不需要在router.js文件中使用中间件)
+    ignore: [
+      '/index', 
+      '/sequelize/login', 
+      '/sequelize/register'
+    ] // 设置符合某些规则的请求不经过这个中间件(配置了此项，则不需要在router.js文件中使用中间件)
   };
-
 
   // 使用nunjucks模板引擎(默认为nunjucks)
   config.view = {
@@ -72,11 +75,6 @@ module.exports = appInfo => {
   config.cors = {
     origin: '*',
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
-  };
-
-  // 使用jwt
-  config.jwt = {
-    secret: 'ttwo12345678'
   };
 
   // 使用mysql
@@ -138,17 +136,28 @@ module.exports = appInfo => {
   };
 
   // 使用redis
-  // config.redis = {
-  //   client: {
-  //     // 主机(外网可访问)
-  //     host: "127.0.0.1",
-  //     // 端口号
-  //     port: 6379,
-  //     // 管理员密码
-  //     password: "",
-  //     db: 0
-  //   }
-  // }
+  config.redis = {
+    client: {
+      // 主机(外网可访问)
+      host: "127.0.0.1",
+      // 端口号
+      port: 6379,
+      // 管理员密码
+      password: "",
+      db: 0
+    }
+  };
+
+  // 使用socket.io
+  config.io = {
+    init: { }, // passed to engine.io
+    namespace: {
+      '/': {
+        connectionMiddleware: [],
+        packetMiddleware: [], // 针对消息的处理暂时不实现
+      },
+    },
+  };
 
   // api默认请求地址
   config.baseApi = 'http://gateway.dev.sysadmin.com/service-dl-platform/api/v1/oms';

@@ -32,6 +32,11 @@ $ 创建镜像 docker build -t ttwo .
 $ 创建容器 docker run -d --name ttwo -p 5215:7001 ttwo
 ```
 
+### 前端使用token
+```
+设置Headers的authorization = 'Bearer ' + token(Bearer后面加一个空格)
+```
+
 ### Api接口测试工具
 ```
 使用Postman

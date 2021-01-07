@@ -1,32 +1,40 @@
-const Service = require('egg').Service;
-const { Op } = require('sequelize');
+const Service = require("egg").Service;
+const { Op } = require("sequelize");
 
 class SequelizeService extends Service {
   // 登录
   async login(userInfo) {
-    const { ctx } = this;
+    const { ctx, app } = this;
     let { username, password } = userInfo;
     if (!username || !password) {
-      return ctx.helper.resultHandler('error', '请输入用户名或密码');
+      return ctx.helper.resultHandler("error", "请输入用户名或密码");
     }
-    // 生成token
-    const token = ctx.helper.getToken(username);
-    ctx.set({'authorization': token})
     const result = await ctx.model.User.findAll({
       where: {
         username: {
-          [Op.eq]: username
+          [Op.eq]: username,
         },
         password: {
-          [Op.eq]: password
-        }
-      }
-    })
-    const data = {
-      token: token,
-      userInfo: result
+          [Op.eq]: password,
+        },
+      },
+    });
+    if (result.length > 0) {
+      // 生成token
+      const token = ctx.helper.getToken(userInfo, 180); // 默认s
+      // 保存token到redis,并设置token过期时间
+      app.redis.set("loginToken", token);
+      app.redis.expire("loginToken", 604800000); // 一周后自动过期(默认ms)
+      // 保存用户信息到redis
+      app.redis.set("userInfo", userInfo);
+      const data = {
+        token: token,
+        userInfo: result,
+      };
+      return ctx.helper.resultHandler("success", data);
+    } else {
+      return ctx.helper.resultHandler("error", "请确认用户是否存在");
     }
-    return ctx.helper.resultHandler('success', data);
   }
 
   // 根据用户id查询(已确认)
@@ -34,7 +42,7 @@ class SequelizeService extends Service {
   async user(id) {
     const { ctx } = this;
     if (!id) {
-      return ctx.helper.resultHandler('error', '参数异常，请检查');
+      return ctx.helper.resultHandler("error", "参数异常，请检查");
     }
     const result = await ctx.model.User.findAll({
       where: {
@@ -43,38 +51,35 @@ class SequelizeService extends Service {
         },
       },
     });
-    return ctx.helper.resultHandler('success', result);
+    return ctx.helper.resultHandler("success", result);
   }
-
 
   // 分页查询用户信息(已确认)
   // 示例：http://localhost:7001/sequelize/userList?page=1&pageSize=10
   async userList(page = 1, pageSize = 5) {
     const { ctx } = this;
     if (!page || !pageSize) {
-      return ctx.helper.resultHandler('error', '参数异常，请检查');
+      return ctx.helper.resultHandler("error", "参数异常，请检查");
     }
     let offset = (page - 1) * pageSize;
     let limit = parseInt(pageSize);
     const result = await ctx.model.User.findAll({
       order: [["id", "asc"]],
       offset,
-      limit
+      limit,
     });
-    return ctx.helper.resultHandler('success', result);
+    return ctx.helper.resultHandler("success", result);
   }
-
 
   // 查所有用户(已确认)
   // 示例：http://localhost:7001/sequelize/userAll
   async userAll() {
     const { ctx } = this;
     const result = await ctx.model.User.findAll({
-      order: [["id", "asc"]]
+      order: [["id", "asc"]],
     });
-    return ctx.helper.resultHandler('success', result);
+    return ctx.helper.resultHandler("success", result);
   }
-
 
   // 插入一个新用户(已确认)
   // 示例：http://localhost:7001/sequelize/createUser
@@ -82,15 +87,14 @@ class SequelizeService extends Service {
   async createUser(user) {
     const { ctx } = this;
     if (!user) {
-      return ctx.helper.resultHandler('error', '参数异常，请检查');
+      return ctx.helper.resultHandler("error", "参数异常，请检查");
     }
     // 处理数据
     user.password = "123456";
     user.create_time = ctx.helper.nowDateTime();
     const result = await ctx.model.User.create(user);
-    return ctx.helper.resultHandler('success', result);
+    return ctx.helper.resultHandler("success", result);
   }
-
 
   // 批量插入新用户(已确认)
   // 示例语句：http://localhost:7001/sequelize/batchCreateUser
@@ -98,17 +102,15 @@ class SequelizeService extends Service {
   async batchCreateUser(userList) {
     const { ctx } = this;
     if (!userList) {
-      return ctx.helper.resultHandler('error', '参数异常，请检查');
+      return ctx.helper.resultHandler("error", "参数异常，请检查");
     }
     // 处理数据
-    userList.forEach(item => {
-      item.password = '123456',
-      item.create_time = ctx.helper.nowDateTime();
+    userList.forEach((item) => {
+      (item.password = "123456"), (item.create_time = ctx.helper.nowDateTime());
     });
     const result = await ctx.model.User.bulkCreate(userList);
-    return ctx.helper.resultHandler('success', result);
+    return ctx.helper.resultHandler("success", result);
   }
-
 
   // 更新指定用户(已确认)
   // 示例语句：http://localhost:7001/sequelize/updateUser
@@ -117,7 +119,7 @@ class SequelizeService extends Service {
     const { ctx } = this;
     let { id, list } = user;
     if (!id || !list) {
-      return ctx.helper.resultHandler('error', '参数异常，请检查');
+      return ctx.helper.resultHandler("error", "参数异常，请检查");
     }
     const result = await ctx.model.User.update(user.list, {
       where: {
@@ -126,7 +128,7 @@ class SequelizeService extends Service {
         },
       },
     });
-    return ctx.helper.resultHandler('success', result);
+    return ctx.helper.resultHandler("success", result);
   }
 
   // 同时更新多个指定用户(已确认)
@@ -136,16 +138,16 @@ class SequelizeService extends Service {
     const { ctx } = this;
     let { ids, list } = userList;
     if (!ids || !list) {
-      return ctx.helper.resultHandler('error', '参数异常，请检查');
+      return ctx.helper.resultHandler("error", "参数异常，请检查");
     }
     const result = await ctx.model.User.update(list, {
       where: {
         id: {
-          [Op.or]: ids
-        }
+          [Op.or]: ids,
+        },
       },
     });
-    return ctx.helper.resultHandler('success', result);
+    return ctx.helper.resultHandler("success", result);
   }
 
   // 批量更新用户
@@ -154,23 +156,24 @@ class SequelizeService extends Service {
   async batchUpdateUser(userList) {
     const { ctx } = this;
     if (!userList) {
-      return ctx.helper.resultHandler('error', '参数异常，请检查');
+      return ctx.helper.resultHandler("error", "参数异常，请检查");
     }
     // 处理数据
-    userList.forEach(item => {
+    userList.forEach((item) => {
       item.create_time = ctx.helper.nowDateTime();
     });
-    const result = await ctx.model.User.bulkCreate(userList, { updateOnDuplicate: ["id","username"] });
-    return ctx.helper.resultHandler('success', result);
+    const result = await ctx.model.User.bulkCreate(userList, {
+      updateOnDuplicate: ["id", "username"],
+    });
+    return ctx.helper.resultHandler("success", result);
   }
-
 
   // 删除指定用户(已确认)
   // 示例语句：http://localhost:7001/sequelize/deleteUser?id=20
   async deleteUser(id) {
     const { ctx } = this;
     if (!id) {
-      return ctx.helper.resultHandler('error', '参数异常，请检查');
+      return ctx.helper.resultHandler("error", "参数异常，请检查");
     }
     const result = await ctx.model.User.destroy({
       where: {
@@ -179,9 +182,8 @@ class SequelizeService extends Service {
         },
       },
     });
-    return ctx.helper.resultHandler('success', result);
+    return ctx.helper.resultHandler("success", result);
   }
-
 
   // 批量删除指定用户(已确认)
   // 示例语句：http://localhost:7001/sequelize/batchDeleteUser
@@ -189,14 +191,14 @@ class SequelizeService extends Service {
   async batchDeleteUser(ids) {
     const { ctx } = this;
     if (!ids) {
-      return ctx.helper.resultHandler('error', '参数异常，请检查');
+      return ctx.helper.resultHandler("error", "参数异常，请检查");
     }
     const result = await ctx.model.User.destroy({
       where: {
         id: ids,
       },
     });
-    return ctx.helper.resultHandler('success', result);
+    return ctx.helper.resultHandler("success", result);
   }
 }
 
