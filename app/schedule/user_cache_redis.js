@@ -11,7 +11,7 @@ class UpdateCache extends Subscription {
 
   // subscribe 是真正定时任务执行时被运行的函数
   async subscribe() {
-    const { ctx } = this;
+    const { ctx, app } = this;
     const result = await ctx.model.User.findAll({
       order: [["id", "asc"]],
     });
