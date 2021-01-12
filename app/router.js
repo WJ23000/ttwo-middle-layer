@@ -30,5 +30,7 @@ module.exports = app => {
   router.post('/sequelize/batchUpdateUser', controller.sequelize.batchUpdateUser);
   router.get('/sequelize/deleteUser', controller.sequelize.deleteUser);
   router.post('/sequelize/batchDeleteUser', controller.sequelize.batchDeleteUser);
+
+  router.get('/redis/getUserList', controller.redis.getUserList);
   
 };

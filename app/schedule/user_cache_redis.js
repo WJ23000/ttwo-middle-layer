@@ -11,10 +11,12 @@ class UpdateCache extends Subscription {
 
   // subscribe 是真正定时任务执行时被运行的函数
   async subscribe() {
-    const res = await this.ctx.curl("http://www.api.com/cache", {
-      dataType: "json",
+    const { ctx } = this;
+    const result = await ctx.model.User.findAll({
+      order: [["id", "asc"]],
     });
-    this.ctx.app.cache = res.data;
+    // 使用redis缓存用户列表
+    app.redis.set("userList", result);
   }
 }
 
