@@ -15,8 +15,10 @@ class UpdateCache extends Subscription {
     const result = await ctx.model.User.findAll({
       order: [["id", "asc"]],
     });
+    // 将JSON对象转化为JSON字符  
+    const data = JSON.stringify(result);
     // 使用redis缓存用户列表
-    app.redis.set("userList", result);
+    app.redis.set("userList", data);
   }
 }
 

@@ -127,6 +127,7 @@ class IndexService extends Service {
         {
           name: 'redis操作',
           options: [
+            { id: 21, name: '获取所有用户列表', url: '/redis/getUserList', describe: '一分钟自动更新一次数据' },
             { id: 21, name: '查询所有key', url: '/queryAllKey', describe: '' },
             { id: 22, name: '存储一个key', url: '/saveKey', describe: '' },
             { id: 23, name: '获取一个key', url: '/getKey', describe: '' },

@@ -45,7 +45,7 @@ module.exports = appInfo => {
 
   // 对路由请求进行token校验
   config.jwt = {
-    enable: true,
+    enable: false,
     ignore: [
       '/index', 
       '/sequelize/login', 
