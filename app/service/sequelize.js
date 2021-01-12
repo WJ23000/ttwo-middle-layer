@@ -24,7 +24,8 @@ class SequelizeService extends Service {
       const token = ctx.helper.getToken(userInfo, 180); // 默认s
       // 保存token到redis,并设置token过期时间
       app.redis.set("loginToken", token);
-      app.redis.expire("loginToken", 604800000); // 一周后自动过期(默认ms)
+      // 一周后自动过期(默认ms)
+      app.redis.expire("loginToken", 604800000); 
       // 保存用户信息到redis
       app.redis.set("userInfo", userInfo);
       const data = {
