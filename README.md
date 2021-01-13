@@ -72,7 +72,12 @@ ttwo-middle-layer
 
 ### 前端使用token
 ```
-设置Headers的authorization = 'Bearer ' + token(Bearer后面加一个空格)
+设置Headers的authorization = 'Bearer ' + ${token}(登录接口会返回，Bearer后面加一个空格)
+```
+
+### 前端通过csrf认证
+```
+设置Headers的x-csrf-evidence = ${csrf}(登录接口会返回)
 ```
 
 ### Api接口测试工具

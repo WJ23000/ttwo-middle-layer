@@ -28,9 +28,13 @@ class SequelizeService extends Service {
       app.redis.expire("loginToken", 604800000); 
       // 保存用户信息到redis
       app.redis.set("userInfo", userInfo);
+      // csrf认证
+      const csrf = ctx.csrf;
       const data = {
-        token: token,
+        token,
+        csrf,
         userInfo: result,
+
       };
       return ctx.helper.resultHandler("success", data);
     } else {

@@ -43,16 +43,6 @@ module.exports = appInfo => {
     // ignore: ['/log'] // 设置符合某些规则的请求不经过这个中间件。
   };
 
-  // 对路由请求进行token校验
-  config.jwt = {
-    enable: false,
-    ignore: [
-      '/index', 
-      '/sequelize/login', 
-      '/sequelize/register'
-    ] // 设置符合某些规则的请求不经过这个中间件(配置了此项，则不需要在router.js文件中使用中间件)
-  };
-
   // 使用nunjucks模板引擎(默认为nunjucks)
   config.view = {
     defaultViewEngine: 'nunjucks',
@@ -62,11 +52,22 @@ module.exports = appInfo => {
     },
   };
 
-  // 关闭csrf功能(不建议这么做，后期改回来)
+  // 对路由请求进行token校验(dev环境可不开启，prod环境需要开启)
+  config.jwt = {
+    enable: false,
+    ignore: [
+      '/index', 
+      '/sequelize/login', 
+      '/sequelize/register'
+    ] // 设置符合某些规则的请求不经过这个中间件(配置了此项，则不需要在router.js文件中使用中间件)
+  };
+
+  // 关闭csrf功能(内置csrf安全机制，dev环境可不开启，prod环境需要开启)
   config.security = {
 　　csrf: {
 　　  enable: false,
-      ignoreJSON: true
+      ignoreJSON: true,
+      headerName: 'x-csrf-evidence', // 自定义请求头
 　　},
 　　domainWhiteList: ['*'] // 允许访问接口的白名单
 　};
