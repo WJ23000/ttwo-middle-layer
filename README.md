@@ -23,13 +23,23 @@ $ npm start
 $ npm stop
 ```
 
-### 镜像Deploy
+### Deploy补充说明
+```
+1.npm run dev默认使用框架内置环境config.default.js和config.local.js合并(dev开发环境)
+1.npm run start未指定--env默认使用框架内置环境config.prod.js
+1.npm run start-test指定--env=test默认使用框架内置环境config.test.js
+1.npm run start-prod指定--env=prod默认使用框架内置环境config.prod.js
+```
+
+### Docker镜像Deploy
 
 ```
 $ 使用docker容器，需要去掉egg-scripts start --daemon --title=egg-server-ttwo-middle-layer中的--daemon
 $ 创建Dockerfile文件
 $ 创建镜像 docker build -t ttwo .
-$ 创建容器 docker run -d --name ttwo -p 5215:7001 ttwo
+$ 创建容器dev环境 docker run -d  EGG_SERVER_ENV=local --name ttwo-dev -p 5215:7001 ttwo
+$ 创建容器test环境 docker run -d EGG_SERVER_ENV=test --name ttwo-test -p 5215:7001 ttwo
+$ 创建容器prod环境 docker run -d EGG_SERVER_ENV=prod --name ttwo-prod -p 5215:7001 ttwo
 ```
 
 ### Introduction 项目结构

@@ -19,12 +19,6 @@ module.exports = {
     package: 'egg-cors'
   },
 
-  // 使用mysql
-  mysql: {
-    enable: true,
-    package: 'egg-mysql'
-  },
-
   // 使用sequelize
   sequelize: {
     enable: true,

@@ -78,26 +78,6 @@ module.exports = appInfo => {
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
   };
 
-  // 使用mysql
-  config.mysql = {
-    client: {
-      // 主机(外网可访问)
-      host: '192.168.66.175',
-      // 端口号
-      port: '3306',
-      // 管理员用户名
-      user: 'root',
-      // 管理员密码
-      password: 'ZJhw@123456',
-      // 数据库名
-      database: 'ttwo_dev',
-    },
-    // 加载到应用程序，默认为打开
-    app: true,
-    // 加载到代理中，默认值为“关闭”
-    agent: false,
-  };
-
   // 使用sequelize操作mysql
   config.sequelize = {
     // 指定数据库类型（mysql, mariadb, postgres, mssql）

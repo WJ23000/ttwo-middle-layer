@@ -12,13 +12,6 @@ module.exports = app => {
   router.get('/list', controller.api.list);
   router.get('/apiList', controller.api.apiList);
 
-  router.get('/mysql/user', controller.mysql.user);
-  router.get('/mysql/userAll', controller.mysql.userAll);
-  router.get('/mysql/createUser', controller.mysql.createUser);
-  router.get('/mysql/updateUser', controller.mysql.updateUser);
-  router.get('/mysql/deleteUser', controller.mysql.deleteUser);
-  
-
   router.post('/sequelize/login', controller.sequelize.login);
   router.get('/sequelize/user', controller.sequelize.user);
   router.get('/sequelize/userList', controller.sequelize.userList);
